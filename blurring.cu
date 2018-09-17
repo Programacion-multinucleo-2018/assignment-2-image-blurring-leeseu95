@@ -56,10 +56,12 @@ __global__ void blur_kernel(unsigned char* input, unsigned char* output, int wid
 				//Igual multiplicamos el width y * 3 en uvY para iterar verticalmente (Arthur me ayudo con la explicacion para encontrar el texel)
 				//Si le sumas al texel el uvY * 3 * width, agarras el de abajo o arriba depeendiendo de uvY
 				texel = color_tid+(uvX*3)+(uvY*width*3); //Direccion de los pixeles alrededor de la matriz
-
-				redPixel += input[texel];
-				greenPixel += input[texel+1];
-				bluePixel += input[texel+2];
+				if(texel >= 0)
+				{
+					redPixel += input[texel];
+					greenPixel += input[texel+1];
+					bluePixel += input[texel+2];
+				}
 			}
 		}
 
@@ -107,7 +109,7 @@ void convert_to_blur(const cv::Mat& input, cv::Mat& output)
 	SAFE_CALL(cudaMemcpy(d_input, input.ptr(), colorBytes, cudaMemcpyHostToDevice), "CUDA Memcpy Host To Device Failed");
 
 	int xBlock = 16;
-	int yBlock = 1024;
+	int yBlock = 64;
 	// Specify a reasonable block size
 	const dim3 block(xBlock, yBlock);
 

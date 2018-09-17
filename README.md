@@ -12,9 +12,16 @@ Include a Pdf file with the results of the testing for each case. Measure the ti
 
 Rubric:
 
-1. The program shows the original image, and the blurred image.
-2. Applied a 5x5 bluring window.
-3. Images are loaded and displayed correctly.
-4. GPU code is initialized correctly.
-5. The report file has tables with the performance data for the different configurations, as well as for the speedup obtained.
-6. The report file has the computer's characteristics, as well as the conclusions.
+1. The program shows the original image, and the blurred image. *Complete*
+2. Applied a 5x5 bluring window. *Incomplete*
+3. Images are loaded and displayed correctly. *Complete*
+4. GPU code is initialized correctly. *Complete*
+5. The report file has tables with the performance data for the different configurations, as well as for the speedup obtained. *Incomplete*
+6. The report file has the computer's characteristics, as well as the conclusions. *Complete*
+
+**NOTES**
+
+1. There was an error with the blocks and threads. If you set *int xBlock = 16* and *int yBlock = 1024*, you exceed the number of threads per block, and the kernel does not execute properly. Changed it to *int xBlock = 16* and *int yBlock = 64* to avoid the issue.
+2. Speedups are missing.
+
+**Grade: 90**
